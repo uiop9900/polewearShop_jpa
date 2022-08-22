@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.cj.util.StringUtils;
 import com.polewearshop.calendar.bo.CalendarBO;
 import com.polewearshop.studio.dao.StudioReserveDAO;
 import com.polewearshop.studio.model.StudioReserve;
@@ -29,11 +28,11 @@ public class StudioReserveBO {
 	
 	public List<StudioReserve> generateStudioReserveList(String btnType, String date) {
 		List<StudioReserve> reserveList = new ArrayList<>();
-		if (StringUtils.isNullOrEmpty(date) && (StringUtils.isNullOrEmpty(btnType) || btnType.equals("notFix"))) {
+		if (date.length() < 0 && (btnType.length() < 0  || btnType.equals("notFix"))) {
 			//미확정예약
 			date = null;
 			reserveList = getNonFixStudioReserveList();
-		} else if (StringUtils.isNullOrEmpty(date) && btnType.equals("fix")) {
+		} else if (date.length() < 0  && btnType.equals("fix")) {
 			//확정예약
 			date = null;
 			reserveList = getFixStudioReserveListByDate(date);
